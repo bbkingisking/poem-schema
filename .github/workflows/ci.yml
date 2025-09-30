@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-validator:
+    name: Build and Test Validator
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Rust
+      uses: actions-rust-lang/setup-rust-toolchain@v1
+      with:
+        toolchain: stable
+
+    - name: Cache Cargo dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          validators/rust/target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('validators/rust/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-
+
+    - name: Build validator
+      working-directory: validators/rust
+      run: cargo build --release
+
+    - name: Run validator with meta-validate
+      working-directory: validators/rust
+      run: cargo run --release -- --meta-validate
+
+    - name: Run tests
+      working-directory: validators/rust
+      run: cargo test

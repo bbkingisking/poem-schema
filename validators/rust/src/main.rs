@@ -14,19 +14,38 @@ const POEM_SCHEMA: &str = include_str!("../../../poem.schema.json");
 #[command(about = "A validator for .poem files")]
 struct Args {
     // Path to the .poem file to validate
-    poem_file: PathBuf,
+    poem_file: Option<PathBuf>,
 
     // Enforce strict ISO 639-3 + (optional) ISO-15924 language code validation
     #[arg(long)]
     strict_language: bool,
+
+    // Validate the schema itself.
+    #[arg(long)]
+    meta_validate: bool,
 }
 
 fn main() -> Result<()> {
     let args = Args::parse();
-    let poem_file_string = fs::read_to_string(args.poem_file.clone())?;
-    let poem_yaml: serde_yaml::Value = serde_yaml::from_str(&poem_file_string)?;
-    validate_poem(poem_yaml, args.strict_language)?;
-    println!("[OK] {} is valid", args.poem_file.file_name().unwrap().to_string_lossy());
+
+    if args.meta_validate {
+        let schema_json: serde_json::Value = serde_json::from_str(POEM_SCHEMA)?;
+        if jsonschema::meta::is_valid(&schema_json) {
+            println!("[OK] Schema is valid");
+        } else {
+            bail!("Schema validation failed");
+        }
+    }
+
+    if let Some(poem_file) = args.poem_file {
+        let poem_file_string = fs::read_to_string(poem_file.clone())?;
+        let poem_yaml: serde_yaml::Value = serde_yaml::from_str(&poem_file_string)?;
+        validate_poem(poem_yaml, args.strict_language)?;
+        println!("[OK] {} is valid", poem_file.file_name().unwrap().to_string_lossy());
+    } else if !args.meta_validate {
+        println!("No poem file provided. Use --meta-validate to validate the schema itself.");
+    }
+
     Ok(())
 }
 
