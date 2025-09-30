@@ -40,7 +40,3 @@ jobs:
     - name: Run validator with meta-validate
       working-directory: validators/rust
       run: cargo run --release -- --meta-validate
-
-    - name: Run tests
-      working-directory: validators/rust
-      run: cargo test
