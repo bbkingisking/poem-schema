@@ -1,0 +1,28 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Poem",
+	"type": "object",
+	"required": ["canonical"],
+	"patternProperties": {
+		".*": {
+			"$ref": "#/definitions/version"
+		}
+	},
+	"additionalProperties": false,
+	"definitions": {
+		"version": {
+			"type": "object",
+			"required": ["text"],
+			"properties": {
+				"title": { "type": "string" },
+				"author": { "type": "string" },
+				"language": { "type": "string" },
+				"text": { "type": "string" },
+				"epigraph": { "type": "string" },
+				"rtl": { "type": "boolean" },
+				"vertical": { "type": "boolean" }
+			},
+			"additionalProperties": true
+		}
+	}
+}
