@@ -83,10 +83,10 @@ hanja_eum:
 
 ## Validation
 
-A Rust validator is included in `./validators/rust`. To build it from source, ensure you have [`rustc`](https://rust-lang.org/tools/install/) installed, then, from `./validators/rust/` run `cargo build --release`. To use the binary, pass the full path as a CLI argument, for example: `./validate-poem /Users/bbkingisking/literature/william-blake_the-tyger.poem`. You will get an `[OK]` message if it is valid, or a detailed error message saying why it is not.
+A Rust validator is included in `./validators/rust`. To build it from source, ensure you have [`rustc`](https://rust-lang.org/tools/install/) installed, then, from `./validators/rust/` run `cargo build --release`. To use the binary, pass the full path of your `.poem` file as a CLI argument, for example: `./validate-poem /Users/bbkingisking/literature/william-blake_the-tyger.poem`. You will get an `[OK]` message if it is valid, or a detailed error message saying why it is not.
 
 > [!NOTE]
-> The schema specification allows arbitrary strings for the `language` property. If you want to ensure that your `language` fields are valid [`ISO-639-3`](https://en.wikipedia.org/wiki/ISO_639-3) and [`ISO-15924`](https://en.wikipedia.org/wiki/ISO_15924) tags (for example, `lzh-Hant`), use the `--strict-language` flag. This is an optional feature of the validator and does not relate to the schema itself.
+> The schema specification allows arbitrary strings for the `language` property. If you want to ensure that your `language` fields are valid combination of [`ISO-639-3`](https://en.wikipedia.org/wiki/ISO_639-3) and [`ISO-15924`](https://en.wikipedia.org/wiki/ISO_15924) tags (for example, `lzh-Hant`), use the `--strict-language` flag. This is an optional feature of the validator and does not relate to the schema itself.
 
 ## Why YAML?
 
@@ -94,7 +94,7 @@ For storing and validating poetry, I see two main goals: structural fidelity and
 
 Readability is especially important in this case, as many people who deal with poetry do not necessarily deal with or care about data structures or programming syntax conventions.
 
-YAML is a wild, messy, but fundamentally expressive language that maximizes both goals. Some delightful examples of that are string [plain style](https://yaml.org/spec/1.2.2/#733-plain-style), which allows easy-on-the-eyes unquoted plain text values for properties like titles and authors, [literal style](https://yaml.org/spec/1.2.2/#literal-style) blocks, which allow the input of a poem in plain text and preserve relative indentation, line breaks, and stanza breaks, and the sadly deprecated ["yes" format for booleans](https://yaml.org/spec/1.1/#id864510).
+YAML is a wild, messy, but fundamentally expressive language that maximizes both goals. Some delightful examples of that are string [plain style](https://yaml.org/spec/1.2.2/#733-plain-style) values, which allow easy-on-the-eyes unquoted plain text titles and authors, [literal style](https://yaml.org/spec/1.2.2/#literal-style) blocks, which allow the input of a poem in plain text and preserve relative indentation, line breaks, and stanza breaks, and the sadly deprecated ["yes" format for booleans](https://yaml.org/spec/1.1/#id864510).
 
 ## Why so minimal?
 
@@ -110,6 +110,6 @@ My [collection of poetry](https://github.com/bbkingisking/poetry) follows this s
 
 ## Limitations
 
-- Poems in which the first line is indented require additional syntax. See [this poem](https://github.com/bbkingisking/poetry/blob/main/%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0_%D0%B0%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%8A%D1%80-%D0%BF%D1%83%D1%88%D0%BA%D0%B8%D0%BD.poem) for an example or the [YAML specs](https://yaml.org/spec/1.2.2/#8111-block-indentation-indicator) for a formal explanation of block indentation indicators.
+- Poems in which the first line is indented require additional syntax. See line 6 of [this poem](https://github.com/bbkingisking/poetry/blob/main/aleksand-r-pushkin_voina.poem) for an example or the [YAML specs](https://yaml.org/spec/1.2.2/#8111-block-indentation-indicator) for a formal explanation of block indentation indicators.
 
 - Not clear how suitable the schema is for [visual poetry](https://en.wikipedia.org/wiki/Visual_poetry)
