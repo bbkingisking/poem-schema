@@ -110,6 +110,6 @@ My [collection of poetry](https://github.com/bbkingisking/poetry) follows this s
 
 ## Limitations
 
-- Poems in which the first line is indented require additional syntax. See line 6 of [this poem](https://github.com/bbkingisking/poetry/blob/main/aleksand-r-pushkin_voina.poem) for an example or the [YAML specs](https://yaml.org/spec/1.2.2/#8111-block-indentation-indicator) for a formal explanation of block indentation indicators.
+- Poems in which the first line is indented require additional syntax. See line 5 of [this poem](https://github.com/bbkingisking/poetry/blob/main/john-donne_the-sun-rising.poem) for an example or the [YAML specs](https://yaml.org/spec/1.2.2/#8111-block-indentation-indicator) for a formal explanation of block indentation indicators.
 
 - Not clear how suitable the schema is for [visual poetry](https://en.wikipedia.org/wiki/Visual_poetry)
